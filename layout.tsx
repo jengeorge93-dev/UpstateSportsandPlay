@@ -1,3 +1,0 @@
-import './globals.css';import {Header,Footer} from '../components/Site';import type {Metadata} from 'next';
-export const metadata:Metadata={title:{default:'Upstate Sports & Play Co. | Premium Sports Party Rentals',template:'%s | Upstate Sports & Play Co.'},description:'Premium mobile sports and party experiences in Spartanburg, Greenville, and Upstate South Carolina. Mini Grand Prix event inquiries for February 2027 and beyond. Mini Grand Prix starts at $495; $95 Early Bird discount for bookings made 60+ days ahead.'};
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body><Header/>{children}<Footer/></body></html>}
