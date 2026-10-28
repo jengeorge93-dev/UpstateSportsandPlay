@@ -1,5 +1,6 @@
 'use client';
 import {useState,type FormEvent} from 'react';
+import Link from 'next/link';
 import Script from 'next/script';
 export default function InquiryForm(){
   const [status,setStatus]=useState<'idle'|'sending'|'success'|'error'>('idle');
@@ -14,7 +15,14 @@ export default function InquiryForm(){
       const out=await r.json();
       if(!r.ok)throw new Error(out.error||'Unable to send inquiry');
       setStatus('success');form.reset();
-    }catch(err){setError(err instanceof Error?err.message:'Please try again');setStatus('error')}
+    }catch(err){
+      setError(err instanceof Error?err.message:'Please try again');setStatus('error');
+      // Turnstile tokens are single-use. Reset after a rejected submission so visitors can retry.
+      if (typeof window !== 'undefined') {
+        const challenge = (window as Window & { turnstile?: { reset: () => void } }).turnstile;
+        challenge?.reset();
+      }
+    }
   }
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
   return <form className="form form-panel" onSubmit={submit} aria-label="Request an event quote">
@@ -30,8 +38,8 @@ export default function InquiryForm(){
     <label className="field">Experience<select name="package" defaultValue="Mini Grand Prix"><option>Mini Grand Prix</option><option>Custom organization / large event quote</option></select></label>
     <label className="field">Approximate event duration<select name="duration" defaultValue="Not sure yet"><option>Not sure yet</option><option>1 hour</option><option>2 hours</option><option>3+ hours</option></select></label>
     <label className="field wide">Anything else we should know?<textarea name="notes" rows={4} maxLength={2000} placeholder="Possible setup space, preferred time, flexible dates, guest details, or questions"/></label>
-    {turnstileSiteKey && <div className="wide"><Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive"/><div className="cf-turnstile" data-sitekey={turnstileSiteKey}/></div>}
+    {turnstileSiteKey && <div className="wide"><Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive"/><div className="cf-turnstile" data-sitekey={turnstileSiteKey} data-action="event_inquiry"/></div>}
     <div className="wide honey" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off"/></label></div>
-    <div className="wide form-bottom"><p className="fine">We use your information to review your event request and respond to you. No payment is collected, and this does not reserve your date. We’ll contact you to discuss availability and confirm next steps.</p><button className="btn form-submit" type="submit" disabled={status==='sending'}>{status==='sending'?'Sending your inquiry…':'Request my event quote ↗'}</button>{status==='success'&&<div className="success" role="status"><strong>Your inquiry has been received.</strong><p>We'll review your event details and contact you directly. Please note that your date is not reserved yet.</p></div>}{status==='error'&&<p className="error" role="alert">{error}</p>}</div>
+    <div className="wide form-bottom"><p className="fine">We use your details to respond to this request. See our <Link href="/privacy" className="inline-link">Privacy Policy</Link>. No payment is collected and this does not reserve your date.</p><button className="btn form-submit" type="submit" disabled={status==='sending'}>{status==='sending'?'Sending your inquiry…':'Request my event quote ↗'}</button>{status==='success'&&<div className="success" role="status"><strong>Your inquiry has been received.</strong><p>We'll review your event details and contact you directly. Please note that your date is not reserved yet.</p></div>}{status==='error'&&<p className="error" role="alert">{error}</p>}</div>
   </form>;
 }

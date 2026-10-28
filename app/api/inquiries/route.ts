@@ -17,7 +17,10 @@ export async function POST(request: Request) {
     const declaredSize = Number(request.headers.get('content-length') || 0);
     if (declaredSize > maxBytes) return NextResponse.json({ error: 'Request is too large.' }, { status: 413, headers: responseHeaders });
 
-    const body = await request.json();
+    // Bound actual bytes, even when Content-Length is absent or inaccurate.
+    const raw = await request.text();
+    if (new TextEncoder().encode(raw).length > maxBytes) return NextResponse.json({ error: 'Request is too large.' }, { status: 413, headers: responseHeaders });
+    const body = JSON.parse(raw);
     const result = inquirySchema.safeParse(body);
     if (!result.success) {
       return NextResponse.json({ error: 'Please check the required fields and try again.' }, { status: 400, headers: responseHeaders });
@@ -27,17 +30,25 @@ export async function POST(request: Request) {
     // Honeypot: quietly ignore common automated submissions.
     if (data.website) return NextResponse.json({ ok: true }, { status: 200, headers: responseHeaders });
 
-    // Optional Cloudflare Turnstile validation. When configured, no unverified lead is accepted.
-    if (process.env.TURNSTILE_SECRET_KEY) {
+    // Require a matching Turnstile configuration to avoid silently unprotected deployments.
+    const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+    if (Boolean(turnstileSiteKey) !== Boolean(turnstileSecret)) {
+      console.error('Turnstile configuration incomplete');
+      return NextResponse.json({ error: 'The form is temporarily unavailable. Please email info@upstatesportsandplay.com.' }, { status: 503, headers: responseHeaders });
+    }
+    if (turnstileSecret) {
       if (!data.turnstileToken) {
         return NextResponse.json({ error: 'Please complete the security check.' }, { status: 400, headers: responseHeaders });
       }
       const check = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
         method: 'POST',
-        body: new URLSearchParams({ secret: process.env.TURNSTILE_SECRET_KEY, response: data.turnstileToken }),
+        body: new URLSearchParams({ secret: turnstileSecret, response: data.turnstileToken }),
         cache: 'no-store',
       });
-      if (!check.ok || !(await check.json()).success) {
+      const outcome: { success?: boolean; hostname?: string; action?: string } = check.ok ? await check.json() : {};
+      const expectedHostnames = ['upstatesportsandplay.com', 'www.upstatesportsandplay.com'];
+      if (!outcome.success || outcome.action !== 'event_inquiry' || !outcome.hostname || !expectedHostnames.includes(outcome.hostname)) {
         return NextResponse.json({ error: 'Security verification failed. Please retry.' }, { status: 400, headers: responseHeaders });
       }
     }

@@ -27,3 +27,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 /* V7: visible, clickable contact information throughout the site */
 .top-inner{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.top .contact-links{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}.contact-links{display:flex;flex-direction:column;gap:11px;line-height:1.5}.contact-links a{text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:4px}.contact-links a:hover{text-decoration-color:currentColor}.contact-links.compact{flex-direction:row;line-height:1.4;letter-spacing:.01em;text-transform:none;font-size:13px}.contact-links.compact a{white-space:nowrap}.contact-panel{margin-top:24px;padding:20px 24px;border:1px solid #b5c4b2;background:#edf1e9}.contact-panel h3{font-size:20px;margin:0 0 8px}.contact-panel p{margin:0 0 10px}.contact-panel .contact-links a{text-decoration-color:#94ac99}.contact-cta{margin-top:16px;font-size:14px;line-height:1.6}.contact-cta a{text-decoration:underline;text-underline-offset:3px}@media(max-width:760px){.top-inner{justify-content:center;text-align:center}.top .contact-links{gap:10px 18px}.contact-links.compact{font-size:12px}.contact-panel{padding:18px}}
+
+/* Privacy and form trust links */
+.inline-link { text-decoration: underline; text-underline-offset: 3px; color: #174b37; }
+.form-bottom .inline-link { font-weight: 700; }
+.privacy-content { max-width: 850px; }
+.privacy-content h2 { font-size: clamp(22px,3vw,31px); letter-spacing: -.035em; margin: 35px 0 10px; }
+.privacy-content p { line-height: 1.8; color: #424a42; margin: 12px 0; }
+.privacy-content .btn { color: #fff; text-decoration: none; margin-top: 20px; }
