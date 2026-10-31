@@ -55,3 +55,8 @@ Both are concept visuals rather than documentary photographs of delivered invent
 The website shows **info@upstatesportsandplay.com** and **(937) 751-7558** as clickable contact links in the top announcement bar, footer, homepage contact callout, and quote page. The email uses `mailto:` and the phone uses `tel:`.
 
 This does **not** configure delivery of website inquiry submissions. To enable form storage and automatic notifications, set up Supabase and Resend following the instructions above. The sample `.env.example` sets `INQUIRY_TO_EMAIL` to the business address; `RESEND_API_KEY` and a verified `INQUIRY_FROM_EMAIL` are still required for email notifications. Verify that the business mailbox is active before publishing.
+
+
+## Privacy and bot protection (V9)
+
+See `PRIVACY-SPAM-SETUP.md`. Privacy policy route is `/privacy`. Cloudflare Turnstile can be enabled by setting both `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` in Vercel Production environment variables, then redeploying.

@@ -2,11 +2,16 @@ import Link from 'next/link';
 import FAQ from '../../components/FAQ';
 import {EarlyBirdPrice} from '../../components/Offer';
 
-export const metadata = {title:'Mini Grand Prix | Kids’ Racing Event Experience',description:'Explore Mini Grand Prix racing parties in Upstate South Carolina. Booking inquiries for February 2027 and beyond. Starting at $495; get $95 off when you book 60+ days ahead.'};
+export const metadata = {
+  title: 'Mini Grand Prix Racing Parties | Upstate SC',
+  description: 'Mini Grand Prix kids racing parties for ages 3–8 in Greenville, Spartanburg and Upstate SC. Inflatable track and electric ride-on cars. Starts at $495; request a date.',
+  alternates: { canonical: '/grand-prix' },
+  openGraph: { title: 'Mini Grand Prix Racing Parties | Upstate SC', description: 'Mini Grand Prix kids racing parties for ages 3–8 in Greenville, Spartanburg and Upstate SC. Inflatable track and electric ride-on cars. Starts at $495; request a date.', url: '/grand-prix' },
+};
 
 export default function GrandPrix() {
   return <main id="main-content">
-    <section className="pagehead"><div className="wrap"><div className="eyebrow">Booking February 2027 & beyond</div><h1>THE MINI<br/>GRAND PRIX.</h1><p>A race-day-inspired attraction for little drivers and big celebrations in Upstate South Carolina.</p><Link href="/request-quote" className="btn light">Check your date ↗</Link></div></section>
+    <section className="pagehead"><div className="wrap"><div className="eyebrow">Booking February 2027 & beyond</div><h1>THE MINI<br/>GRAND PRIX.</h1><p>A mobile kids’ racing party experience for ages 3–8 in Spartanburg, Greenville, and surrounding Upstate South Carolina communities.</p><Link href="/request-quote" className="btn light">Check your date ↗</Link></div></section>
     <div className="check" aria-hidden="true"/>
     <section className="section wrap grid2"><div><div className="eyebrow">The race-day experience</div><h2>Ready. Set. Play.</h2><p className="muted">Bring a motorsports-inspired experience to your event with an inflatable racing circuit and kid-sized, battery-powered Formula-style ride-on cars. It’s a memorable centerpiece for birthdays, school events, clubs, and family celebrations.</p><p className="muted"><strong>Best suited to younger children, approximately ages 3–8.</strong> Eligibility, supervision, and ride guidelines depend on the cars and event setup. We’ll review those details with you before confirming your booking.</p><div className="info-strip">The experience centers on an inflatable racing circuit and electric ride-on cars. Your quote will specify what’s included and the event arrangements.</div></div><div className="panel"><EarlyBirdPrice compact/></div></section>
     <section className="section dark"><div className="wrap"><div className="eyebrow">Where the fun fits</div><h2>From backyard birthdays to big family days.</h2><div className="grid3"><div><h3>Birthday celebrations</h3><p className="muted">A signature race-day theme for the birthday child and their guests.</p></div><div><h3>Schools & youth clubs</h3><p className="muted">An event attraction to discuss for field days, fundraisers, and family nights.</p></div><div><h3>Festivals & company events</h3><p className="muted">We'll develop a tailored proposal based on audience size, operating time, and site requirements.</p></div></div></div></section>

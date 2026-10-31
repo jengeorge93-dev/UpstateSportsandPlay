@@ -4,13 +4,29 @@ import {EarlyBirdPrice} from '../components/Offer';
 import FAQ from '../components/FAQ';
 import {ContactLinks} from '../components/Site';
 
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Upstate Sports & Play Co.',
+  url: 'https://upstatesportsandplay.com',
+  email: 'info@upstatesportsandplay.com',
+  telephone: '+1-937-751-7558',
+  description: 'Mobile Mini Grand Prix racing parties and event entertainment serving Upstate South Carolina.',
+  areaServed: [
+    { '@type': 'City', name: 'Spartanburg, South Carolina' },
+    { '@type': 'City', name: 'Greenville, South Carolina' },
+    { '@type': 'AdministrativeArea', name: 'Upstate South Carolina' },
+  ],
+};
+
 export default function Home() {
   return <main id="main-content">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema).replace(/</g, '\u003c') }} />
     <section className="hero">
       <div className="hero-copy">
         <div className="eyebrow" style={{color:'#c8dbb6'}}>Upstate South Carolina · Booking February 2027 & beyond</div>
         <h1>BIG THRILLS.<br/>LITTLE<br/>DRIVERS.</h1>
-        <p>A mini motorsports experience for birthday parties, school celebrations, and community events. We bring the race-day idea to your Upstate gathering.</p>
+        <p>Mobile kids’ racing birthday parties and event entertainment in Spartanburg, Greenville, and across Upstate South Carolina. We bring the Mini Grand Prix experience to your celebration.</p>
         <div className="hero-age"><span aria-hidden="true">✦</span> Suitable for ages 3–8</div><div className="hero-actions"><Link href="/request-quote" className="btn light">Check your date ↗</Link><Link href="/grand-prix" className="btn hero-outline">Explore Mini Grand Prix</Link></div>
         <p className="hero-note">Now booking inquiries for February 2027 and beyond. Requesting a date is free.</p>
       </div>
@@ -23,6 +39,6 @@ export default function Home() {
     <section className="section wrap"><div className="eyebrow">Simple from the first message</div><h2>How to get started.</h2><div className="grid3"><div className="panel"><span className="step">01</span><h3>Tell us your plans</h3><p className="muted">Send the date, location, guest ages, and whatever else you know. Estimates are fine.</p></div><div className="panel"><span className="step">02</span><h3>Get a personal response</h3><p className="muted">We’ll review the event details and discuss the setup, pricing, and next steps.</p></div><div className="panel"><span className="step">03</span><h3>Decide with confidence</h3><p className="muted">Nothing is reserved or charged until details and availability are confirmed with you.</p></div></div></section>
     <section className="section" style={{background:'#ebece3'}}><div className="wrap"><div className="eyebrow">Good to know before you inquire</div><h2>Your questions, answered.</h2><FAQ short/><div className="section-action"><Link className="btn outline" href="/grand-prix#faq">See all frequently asked questions ↗</Link></div></div></section>
     <section className="section wrap"><div className="eyebrow">The future of play</div><h2>More sports. More ways to celebrate.</h2><p className="muted section-intro">Mini Grand Prix comes first. These are ideas we’re exploring for future seasons—not currently available to reserve.</p><div className="grid2 more-sports-grid"><div className="panel coming"><div className="eyebrow">Future experience · Not bookable</div><h3>The Soccer Club</h3><p className="muted">A mobile soccer arena designed for games, parties, and team celebrations.</p></div><div className="panel coming"><div className="eyebrow">Future experience · Not bookable</div><h3>Little League Play</h3><p className="muted">A playful, design-forward soft play concept for younger guests.</p></div></div></section>
-    <section className="section area-section"><div className="wrap grid2"><div><div className="eyebrow">Locally based · Event delivery</div><h2>Made for the Upstate.</h2><p className="muted">Serving Spartanburg, Greenville, and surrounding Upstate South Carolina communities. Share your event location and we’ll confirm service availability and any travel charges.</p></div><div className="area-callout"><div className="eyebrow">Your event could be next</div><h3>Let's talk race day.</h3><p className="muted">Whether your plans are fully formed or just getting started, send us the basics. Inquiries are free, and dates are not automatically reserved.</p><Link className="btn" href="/request-quote">Ask about your event ↗</Link><div className="contact-cta">Or reach us directly:<ContactLinks/></div></div></div></section>
+    <section className="section area-section"><div className="wrap grid2"><div><div className="eyebrow">Locally based · Event delivery</div><h2>Made for the Upstate.</h2><p className="muted">We accept inquiries for parties and events in Spartanburg, Greenville, Greer, Boiling Springs, Inman, Duncan, Lyman, Taylors, Simpsonville, Mauldin, and surrounding Upstate South Carolina communities. Share your venue address so we can confirm service availability and any travel charges. <strong>Planning a birthday party?</strong> Explore the <Link href="/grand-prix">Mini Grand Prix racing experience</Link> or <Link href="/request-quote">request a personalized quote</Link>.</p></div><div className="area-callout"><div className="eyebrow">Your event could be next</div><h3>Let's talk race day.</h3><p className="muted">Whether your plans are fully formed or just getting started, send us the basics. Inquiries are free, and dates are not automatically reserved.</p><Link className="btn" href="/request-quote">Ask about your event ↗</Link><div className="contact-cta">Or reach us directly:<ContactLinks/></div></div></div></section>
   </main>;
 }
