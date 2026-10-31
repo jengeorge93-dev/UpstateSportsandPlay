@@ -10,7 +10,7 @@ const organizationSchema = {
   name: 'Upstate Sports & Play Co.',
   url: 'https://upstatesportsandplay.com',
   email: 'info@upstatesportsandplay.com',
-  telephone: '+1-937-751-7558',
+  telephone: '+1-864-383-3961',
   description: 'Mobile Mini Grand Prix racing parties and event entertainment serving Upstate South Carolina.',
   areaServed: [
     { '@type': 'City', name: 'Spartanburg, South Carolina' },
