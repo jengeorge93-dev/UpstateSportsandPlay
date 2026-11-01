@@ -1,6 +1,7 @@
 import './globals.css';
 import { Header, Footer } from '../components/Site';
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://upstatesportsandplay.com'),
@@ -23,5 +24,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="en"><body><Header />{children}<Footer /></body></html>;
+  return <html lang="en"><body><Header />{children}<Footer /><Analytics /></body></html>;
 }
